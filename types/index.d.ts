@@ -49,3 +49,9 @@ interface Feedback {
         }[];
     };
 }
+
+// allow importing assets with ?url query (Vite)
+declare module "*?url" {
+    const value: string;
+    export default value;
+}
