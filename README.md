@@ -1,87 +1,160 @@
-# Welcome to React Router!
 
-A modern, production-ready template for building full-stack React applications using React Router.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+# AI Resume Analyzer
 
-## Features
+## Project Description
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+AI Resume Analyzer is a full-stack web application that evaluates resumes using a structured, algorithm-driven scoring system before generating AI-assisted feedback.
 
-## Getting Started
+Unlike simple AI wrappers, this system does **not** upload raw resumes directly to a language model for scoring. Instead, it:
 
-### Installation
+1. Parses and processes resume content algorithmically
+2. Computes an ATS-style weighted score
+3. Performs job matching and skill gap analysis
+4. Passes structured results to an AI module for refinement and improvement suggestions
 
-Install the dependencies:
+The goal is to simulate Applicant Tracking System (ATS) evaluation while maintaining transparency, deterministic scoring logic, and controlled AI integration.
+
+---
+
+## Core Features
+
+* Secure user authentication
+* Cloud-based resume upload and storage
+* PDF-to-text processing pipeline
+* Weighted ATS scoring model
+* Job description matching
+* Skill gap detection
+* AI-assisted resume improvement
+* Regenerated resume output (downloadable)
+
+---
+
+## User Flow
+
+1. User signs in.
+2. User uploads a resume (PDF).
+3. Resume is stored in the cloud backend.
+4. Text is extracted and parsed.
+5. ATS score is computed using weighted criteria.
+6. Skill gaps and keyword deficiencies are identified.
+7. Structured results are passed to AI for feedback.
+8. Improved resume version is generated.
+
+---
+
+## ATS Scoring Model (Simplified)
+
+The ATS score is computed using a weighted formula:
+
+```
+ATS Score = 
+0.40(Keyword Match) +
+0.30(Skills Match) +
+0.15(Experience Relevance) +
+0.10(Formatting Quality) +
+0.05(Education Match)
+```
+
+Each component is calculated using deterministic logic before AI feedback is generated.
+
+---
+
+## Technologies Used
+
+* **Frontend:** JavaScript / TypeScript
+* **Backend Services:** Puter.js
+* **Authentication:** Puter Auth API
+* **Cloud Storage:** Puter File System (fs)
+* **Persistent Data:** Puter Key-Value Store (kv)
+* **AI Integration:** Puter AI API
+* **Document Processing:** PDF parsing and OCR pipeline
+
+---
+
+## Repository Structure
+
+```
+AI-Resume-Analyzer/
+│
+├── public/                  # Static assets
+│
+├── app/
+│   ├── components/          # UI components
+│   ├── routes/               # Page-level ROutes (Home, Upload, Results)
+│   ├── utils/               # Resume parsing & scoring logic
+│   ├── lib/
+│   │     ├── puter.ts       # Puter backend integration (auth, fs, ai, kv)
+│   │     ├── ats.ts         # ATS scoring algorithm
+│   │     ├── matcher.ts     # Job matching logic
+│   │     └── parser.ts      # Resume text extraction
+│   │
+│   └── index.ts              # Application entry point
+│
+├── package.json
+├── README.md
+└── tsconfig.json
+```
+
+This structure separates:
+
+* UI logic
+* Algorithmic processing
+* Backend integrations
+* AI interaction
+
+to maintain modularity and scalability.
+
+---
+
+## Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/ai-resume-analyzer.git
+cd ai-resume-analyzer
+```
+
+### 2. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### Development
+### 3. Configure Environment
 
-Start the development server with HMR:
+Ensure Puter services are properly initialized in your backend configuration file (`puter.ts`).
+
+If environment variables are required, create a `.env` file and include necessary keys.
+
+### 4. Start Development Server
 
 ```bash
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+The application should now be running locally.
 
 ---
 
-Built with ❤️ using React Router.
+## How to Run the Project
+
+1. Start the development server.
+2. Open the local host URL provided in the terminal.
+3. Sign in using Puter authentication.
+4. Upload a resume (PDF).
+5. View ATS score, skill gap analysis, and AI-generated improvements.
+
+---
+
+## Architectural Design
+
+The system follows a modular full-stack design:
+
+* **Authentication Layer** – Manages user sessions
+* **File System Layer** – Handles resume uploads and storage
+* **Algorithm Engine** – Computes ATS scores and matching metrics
+* **AI Refinement Layer** – Generates feedback using structured inputs
+
+
