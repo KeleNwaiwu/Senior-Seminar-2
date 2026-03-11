@@ -8,4 +8,5 @@ export default [
   // don't generate noisy "No route matches" errors during development
   route('*', 'routes/notfound.tsx'),
   route('/resume/:id', 'routes/resume.tsx'),
+  route('/wipe', 'routes/wipe.tsx'),
 ] satisfies RouteConfig;
