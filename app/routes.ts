@@ -7,4 +7,5 @@ export default [
   // catch-all so that unexpected requests (e.g. Chrome DevTools "/.well-known/..." fetches)
   // don't generate noisy "No route matches" errors during development
   route('*', 'routes/notfound.tsx'),
+  route('/resume/:id', 'routes/resume.tsx'),
 ] satisfies RouteConfig;
