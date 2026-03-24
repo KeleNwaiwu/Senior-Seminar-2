@@ -1,4 +1,5 @@
 import { cn } from "~/lib/utils";
+import { useNavigate } from "react-router";
 import {
   Accordion,
   AccordionContent,
@@ -106,7 +107,15 @@ const CategoryContent = ({
   );
 };
 
-const Details = ({ feedback }: { feedback: Feedback }) => {
+const Details = ({ feedback, resumeId }: { feedback: Feedback; resumeId?: string }) => {
+  const navigate = useNavigate();
+
+  const handleGenerateResume = () => {
+    if (resumeId) {
+      navigate(`/resume/${resumeId}/generate`);
+    }
+  };
+
   return (
       <div className="flex flex-col gap-4 w-full">
         <Accordion>
@@ -155,6 +164,14 @@ const Details = ({ feedback }: { feedback: Feedback }) => {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
+        {resumeId && (
+          <button
+            onClick={handleGenerateResume}
+            className="primary-button mt-6 w-full"
+          >
+            View and Download New Resume
+          </button>
+        )}
       </div>
   );
 };
