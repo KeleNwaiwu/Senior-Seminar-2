@@ -6,6 +6,7 @@ import {useNavigate} from "react-router";
 import {convertPdfToImage} from "~/lib/pdf2img";
 import {generateUUID} from "~/lib/utils";
 import {prepareInstructions} from "../../constants";
+import { extractJSON } from "~/lib/jsonParser";
 
 const Upload = () => {
     const { auth, isLoading, fs, ai, kv } = usePuterStore();
@@ -67,28 +68,11 @@ const Upload = () => {
             ? feedback.message.content
             : feedback.message.content[0].text;
 
-        // AI sometimes wraps the JSON in markdown fences (```json ... ```)
-        // or prepends/explains in text. Strip those out before parsing.
-        const extractJson = (text: string) => {
-            const fenceMatch = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
-            if (fenceMatch) {
-                return fenceMatch[1].trim();
-            }
-            // try to find first and last brace pair as a fallback
-            const braceIndex = text.indexOf('{');
-            const lastBrace = text.lastIndexOf('}');
-            if (braceIndex !== -1 && lastBrace !== -1) {
-                return text.slice(braceIndex, lastBrace + 1);
-            }
-            return text;
-        };
-
-        const jsonString = extractJson(feedbackText);
         try {
-            data.feedback = JSON.parse(jsonString);
+            data.feedback = extractJSON(feedbackText);
         } catch (err) {
-            console.error('Failed to parse AI feedback JSON', { feedbackText, jsonString, err });
-            return setStatusText('Error: Received malformed analysis from AI');
+            console.error('Failed to parse AI feedback JSON', { feedbackText, err });
+            return setStatusText('Error: Received malformed analysis from AI. Please try uploading again.');
         }
 
         await kv.set(`resume:${uuid}`, JSON.stringify(data));

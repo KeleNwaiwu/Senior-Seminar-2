@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router";
 import { usePuterStore } from "~/lib/puter";
 import jsPDF from "jspdf";
+import { extractJSON } from "~/lib/jsonParser";
 
 export const meta = () => ([
     { title: 'CV Pilot | Generate Resume' },
@@ -185,8 +186,14 @@ Generate the resume now:`;
             } catch (err) {
                 console.error('Error in generateImprovedResume:', err);
                 const errorMsg = err instanceof Error ? err.message : 'An error occurred while generating the resume';
-                console.error('Final error message:', errorMsg);
-                setError(errorMsg);
+                console.error('Full error details:', err);
+                
+                // Check for connection errors
+                if (errorMsg.includes('ECONNREFUSED') || errorMsg.includes('connect')) {
+                    setError('Unable to connect to AI service. Please try again in a moment. If the issue persists, check your internet connection.');
+                } else {
+                    setError(errorMsg);
+                }
                 setIsGenerating(false);
             }
         };
@@ -300,7 +307,7 @@ Generate the resume now:`;
                 </Link>
             </nav>
 
-            <section className="feedback-section bg-[url('/images/bg-small.svg')] bg-cover items-center justify-center">
+            <section className="full-width-section bg-[url('/images/bg-small.svg')] bg-cover">
                 {isGenerating ? (
                     <div className="flex flex-col gap-4 items-center justify-center h-[100vh]">
                         <img src="/images/resume-scan-2.gif" className="w-24 h-24" />

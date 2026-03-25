@@ -1,5 +1,5 @@
 import { cn } from "~/lib/utils";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 import {
   Accordion,
   AccordionContent,
@@ -165,12 +165,20 @@ const Details = ({ feedback, resumeId }: { feedback: Feedback; resumeId?: string
           </AccordionItem>
         </Accordion>
         {resumeId && (
-          <button
-            onClick={handleGenerateResume}
-            className="primary-button mt-6 w-full"
-          >
-            View and Download New Resume
-          </button>
+          <div className="flex flex-col gap-3 mt-6 w-full">
+            <button
+              onClick={handleGenerateResume}
+              className="primary-button"
+            >
+              View and Download New Resume
+            </button>
+            <Link
+              to={`/job-match/${resumeId}`}
+              className="primary-button text-center"
+            >
+              Analyze Job Match
+            </Link>
+          </div>
         )}
       </div>
   );
