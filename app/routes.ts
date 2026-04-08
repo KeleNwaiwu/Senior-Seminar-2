@@ -7,6 +7,7 @@ export default [
   route('/resume/:id', 'routes/resume.tsx'),
   route('/resume/:id/generate', 'routes/generate-resume.tsx'),
   route('/job-match/:id', 'routes/job-match.tsx'),
+  route('/interview-prep/:id', 'routes/interview-prep.tsx'),
   route('/wipe', 'routes/wipe.tsx'),
   // catch-all so that unexpected requests (e.g. Chrome DevTools "/.well-known/..." fetches)
   // don't generate noisy "No route matches" errors during development

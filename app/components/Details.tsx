@@ -178,6 +178,12 @@ const Details = ({ feedback, resumeId }: { feedback: Feedback; resumeId?: string
             >
               Analyze Job Match
             </Link>
+            <Link
+              to={`/interview-prep/${resumeId}`}
+              className="primary-button text-center"
+            >
+              Generate Interview Questions
+            </Link>
           </div>
         )}
       </div>
